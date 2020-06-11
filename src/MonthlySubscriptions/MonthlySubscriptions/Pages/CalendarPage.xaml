@@ -23,12 +23,18 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 
-                <Button Text="{fa:Icon 'fas fa-arrow-circle-left'}" />
+                <Button Text="{fa:Icon 'fas fa-arrow-circle-left'}"
+                        Command="{Binding PrevCmd}"/>
                 <Label Text="{Binding SelectedDate, StringFormat='{0:MM-yyyy}'}"   
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"
-                       Grid.Column="1" />
+                       Grid.Column="1" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CurrentCmd}" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Button Text="{fa:Icon 'fas fa-arrow-circle-right'}"
+                        Command="{Binding NextCmd}"
                         Grid.Column="2" />
             </Grid>
 
@@ -40,7 +46,9 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:DayContext">
-                        <Label Text="{Binding Day}" />
+                        <Label Text="{Binding Day}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

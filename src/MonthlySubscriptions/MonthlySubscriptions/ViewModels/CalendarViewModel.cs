@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MonthlySubscriptions.ViewModels
@@ -18,6 +19,11 @@ namespace MonthlySubscriptions.ViewModels
         public DateTime SelectedDate { get => _selectedDate; set => SetProperty(ref _selectedDate, value); }
 
         public IEnumerable<DayContext> Days { get => _days; set => SetProperty(ref _days, value); }
+
+        public Command NextCmd => new Command(() => SelectedDate = SelectedDate.AddMonths(1));
+        public Command PrevCmd => new Command(() => SelectedDate = SelectedDate.AddMonths(-1));
+
+        public Command CurrentCmd => new Command(() => SelectedDate = DateTime.Now);
 
         public CalendarViewModel()
         {
