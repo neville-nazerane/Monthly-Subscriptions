@@ -27,7 +27,7 @@ namespace MonthlySubscriptions.ViewModels
 
         public void UpdateDataFromDate()
         {
-            int numOfDays = DateTime.DaysInMonth(SelectedDate.Month, SelectedDate.Year);
+            int numOfDays = DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month);
 
             var days = Enumerable.Range(1, numOfDays).Select(i => new DayContext { Day = i }).ToArray();
 

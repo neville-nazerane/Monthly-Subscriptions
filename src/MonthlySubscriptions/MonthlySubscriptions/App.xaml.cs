@@ -16,7 +16,8 @@ namespace MonthlySubscriptions
             DbSetup();
             FontRegistry.RegisterFonts(FontAwesomeSolid.Font);
 
-            MainPage = new MainPage();
+            MainPage = new AppShell();
+
         }
 
         void DbSetup()

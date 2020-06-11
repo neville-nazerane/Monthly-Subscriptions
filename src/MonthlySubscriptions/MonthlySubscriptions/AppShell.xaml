@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MonthlySubscriptions.AppShell">
-    
+       xmlns:pages="clr-namespace:MonthlySubscriptions.Pages"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:fa="http://avantipoint.com/mobiletoolkit"
+        x:Class="MonthlySubscriptions.AppShell">
+    <TabBar>
+        <Tab Title="Calendar" Icon="{fa:IconImageSource 'fas fa-calendar-alt'}">
+            <pages:CalendarPage />
+        </Tab>
+        <Tab Title="Other" />
+    </TabBar>
 </Shell>
