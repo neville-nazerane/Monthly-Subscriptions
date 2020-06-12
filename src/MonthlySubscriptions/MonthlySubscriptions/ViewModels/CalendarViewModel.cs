@@ -15,10 +15,24 @@ namespace MonthlySubscriptions.ViewModels
         private IEnumerable<DayContext> _days;
         private DateTime _selectedDate;
         private MonthData data;
+        private DateTime? _selection;
 
-        public DateTime SelectedDate { get => _selectedDate; set => SetProperty(ref _selectedDate, value); }
+        public DateTime? Selection { get => _selection; set => SetProperty(ref _selection, value); }
+
+        public DateTime SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                SetProperty(ref _selectedDate, value);
+                UpdateDataFromDate();
+                Selection = null;
+            }
+        }
 
         public IEnumerable<DayContext> Days { get => _days; set => SetProperty(ref _days, value); }
+
+        public Command SelectCmd => new Command<int>(SelectDay);
 
         public Command NextCmd => new Command(() => SelectedDate = SelectedDate.AddMonths(1));
         public Command PrevCmd => new Command(() => SelectedDate = SelectedDate.AddMonths(-1));
@@ -29,6 +43,11 @@ namespace MonthlySubscriptions.ViewModels
         {
             SelectedDate = DateTime.Now;
             UpdateDataFromDate();
+        }
+
+        public void SelectDay(int day)
+        {
+            Selection = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
         }
 
         public void UpdateDataFromDate()

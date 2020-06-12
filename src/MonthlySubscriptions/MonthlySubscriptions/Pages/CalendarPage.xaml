@@ -7,6 +7,7 @@
              xmlns:m="clr-namespace:MonthlySubscriptions.Models"
              xmlns:fa="http://avantipoint.com/mobiletoolkit"
              mc:Ignorable="d"
+             x:DataType="vm:CalendarViewModel"
              x:Class="MonthlySubscriptions.Pages.CalendarPage">
 
     <ContentPage.BindingContext>
@@ -41,6 +42,7 @@
             <CollectionView ItemsSource="{Binding Days}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"
+                                     VerticalItemSpacing="12"
                                      HorizontalItemSpacing="4"
                                      Span="7" />
                 </CollectionView.ItemsLayout>
@@ -48,11 +50,17 @@
                     <DataTemplate x:DataType="m:DayContext">
                         <Label Text="{Binding Day}"
                                HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center" />
+                               VerticalTextAlignment="Center" >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCmd, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
+                                                      CommandParameter="{Binding}" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
+            <Label Text="{Binding Selection}" FontSize="Large" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
