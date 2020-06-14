@@ -3,18 +3,22 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
   outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
 steps:
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
+    command: 'restore'
     restoreSolution: '**/*.sln'
+    feedsToUse: 'config'
+    nugetConfigPath: 'src/nuget.config'
 
 - task: XamarinAndroid@1
   inputs:
