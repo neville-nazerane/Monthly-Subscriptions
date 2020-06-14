@@ -45,8 +45,7 @@ stages:
 
         steps:
 
-
-        - download: DownloadBinaries
+        - download: current
           artifact: subscriptionsAndroid
           patterns: '**/*.apk'
 
