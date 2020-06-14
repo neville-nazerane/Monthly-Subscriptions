@@ -9,19 +9,28 @@ variables:
   buildConfiguration: 'Release'
   outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
-steps:
+stages:
+  - stage: Build
+    jobs:
 
-- task: NuGetToolInstaller@1
+      - job: XamarinCompile
+        displayName: Building xamarin android
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
-    restoreSolution: '**/*.sln'
-    feedsToUse: 'config'
-    nugetConfigPath: 'src/nuget.config'
+        steps:
+        - task: NuGetToolInstaller@1
 
-- task: XamarinAndroid@1
-  inputs:
-    projectFile: '**/*droid*.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
+        - task: NuGetCommand@2
+          inputs:
+            command: 'restore'
+            restoreSolution: 'src/Monthly Subscriptions.sln'
+            feedsToUse: 'config'
+            nugetConfigPath: 'src/nuget.config'
+
+        - task: XamarinAndroid@1
+          inputs:
+            projectFile: '**/*droid*.csproj'
+            outputDirectory: '$(outputDirectory)'
+            configuration: '$(buildConfiguration)' 
+
+
+
