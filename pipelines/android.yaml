@@ -29,7 +29,7 @@ stages:
 
         - task: XamarinAndroid@1
           inputs:
-            projectFile: src/MonthlySubscriptions.Android/MonthlySubscriptions.Android.csproj
+            projectFile: src/MonthlySubscriptions/MonthlySubscriptions.Android/MonthlySubscriptions.Android.csproj
             outputDirectory: $(outputDirectory)
             configuration: '$(buildConfiguration)' 
 
