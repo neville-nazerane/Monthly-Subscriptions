@@ -32,15 +32,20 @@ namespace MonthlySubscriptions.ViewModels
 
         public IEnumerable<DayContext> Days { get => _days; set => SetProperty(ref _days, value); }
 
-        public Command SelectCmd => new Command<int>(SelectDay);
+        public Command SelectCmd { get; set; }
 
-        public Command NextCmd => new Command(() => SelectedDate = SelectedDate.AddMonths(1));
-        public Command PrevCmd => new Command(() => SelectedDate = SelectedDate.AddMonths(-1));
+        public Command NextCmd { get; set; }
+        public Command PrevCmd { get; set; }
 
-        public Command CurrentCmd => new Command(() => SelectedDate = DateTime.Now);
+        public Command CurrentCmd { get; set; }
 
         public CalendarViewModel()
         {
+            NextCmd = new Command(() => SelectedDate = SelectedDate.AddMonths(1));
+            PrevCmd = new Command(() => SelectedDate = SelectedDate.AddMonths(-1));
+            CurrentCmd = new Command(() => SelectedDate = DateTime.Now);
+            SelectCmd = new Command<int>(SelectDay);
+
             SelectedDate = DateTime.Now;
             UpdateDataFromDate();
         }
