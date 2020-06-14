@@ -49,7 +49,7 @@ stages:
 
         - download: current
           artifact: subscriptionsAndroid
-          patterns: $(apkPath)
+          # patterns: $(apkPath)
 
         - task: AndroidSigning@3
           inputs:
