@@ -47,6 +47,7 @@ stages:
 
         - download: current
           artifact: subscriptionsAndroid
+          patterns: '**/*.apk'
 
         - script: ls $(Pipeline.Workspace)/subscriptionsAndroid
 
@@ -54,7 +55,7 @@ stages:
           inputs:
             serverEndpoint: 'My App Center'
             appSlug: 'live.neville-live.com/Monthly-Subscriptions'
-            appFile: '$(Pipeline.Workspace)/subscriptionsAndroid/com.companyname.monthlysubscriptions-Signed.apk'
+            appFile: '$(Pipeline.Workspace)/subscriptionsAndroid/com.companyname.monthlysubscriptions.apk'
             symbolsOption: 'Android'
             releaseNotesOption: 'input'
             releaseNotesInput: 'The lazy developer hasn''t added any actual release notes.'
