@@ -11,6 +11,7 @@ variables:
 
 stages:
   - stage: Build
+    displayName: Build App
     jobs:
 
       - job: XamarinCompile
@@ -28,9 +29,38 @@ stages:
 
         - task: XamarinAndroid@1
           inputs:
-            projectFile: '**/*droid*.csproj'
-            outputDirectory: '$(outputDirectory)'
+            projectFile: src/MonthlySubscriptions.Android/MonthlySubscriptions.Android.csproj
+            outputDirectory: $(outputDirectory)
             configuration: '$(buildConfiguration)' 
 
+        - publish: $(outputDirectory)
+          artifact: subscriptionsAndroid
+        
+
+  - stage: AppCenterDeploy
+    displayName: Deploy to App Center
+    jobs:
+
+      - job: AppCenter
+
+        steps:
+
+
+        - download: DownloadBinaries
+          artifact: subscriptionsAndroid
+          patterns: '**/*.apk'
+
+        - script: ls $(Pipeline.Workspace)/subscriptionsAndroid
+
+        - task: AppCenterDistribute@3
+          inputs:
+            serverEndpoint: 'My App Center'
+            appSlug: 'live.neville-live.com/Monthly-Subscriptions'
+            appFile: '$(Pipeline.Workspace)/subscriptionsAndroid/com.companyname.monthlysubscriptions-Signed.apk'
+            symbolsOption: 'Android'
+            releaseNotesOption: 'input'
+            releaseNotesInput: 'The lazy developer hasn''t added any actual release notes.'
+            destinationType: 'groups'
+          
 
 
