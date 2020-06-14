@@ -47,7 +47,7 @@ stages:
 
         - download: current
           artifact: subscriptionsAndroid
-          patterns: '**/*.apk'
+          patterns: '**/*Signed.apk'
 
         - script: ls $(Pipeline.Workspace)/subscriptionsAndroid
 
