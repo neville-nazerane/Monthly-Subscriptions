@@ -7,6 +7,7 @@
              xmlns:m="clr-namespace:MonthlySubscriptions.Models"
              xmlns:fa="http://avantipoint.com/mobiletoolkit"
              mc:Ignorable="d"
+             Title="Calendar"
              x:Class="MonthlySubscriptions.Pages.CalendarPage">
 
     <ContentPage.BindingContext>
@@ -20,7 +21,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 
@@ -49,16 +49,27 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:DayContext">
-                        <Grid>
+                        <StackLayout>
                             <Label Text="{Binding Day}"
                                HorizontalTextAlignment="Center"
                                VerticalTextAlignment="Center" >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectCmd, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
-                                                      CommandParameter="{Binding Day}" />
+                                                          CommandParameter="{Binding Day}" />
                                 </Label.GestureRecognizers>
                             </Label>
-                        </Grid>
+
+                            <StackLayout BindableLayout.ItemsSource="{Binding Subscriptions}" >
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="m:Subscription">
+                                        <Label Text="{Binding Price}" 
+                                               TextColor="OrangeRed"
+                                               FontSize="Medium" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

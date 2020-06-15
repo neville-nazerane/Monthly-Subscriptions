@@ -8,6 +8,8 @@
         <Tab Title="Calendar" Icon="{fa:IconImageSource 'fas fa-calendar-alt'}">
             <pages:CalendarPage />
         </Tab>
-        <Tab Title="Other" />
+        <Tab Title="Settings" Icon="{fa:IconImageSource 'fas fa-cogs'}" >
+            <pages:SettingsPage />
+        </Tab>
     </TabBar>
 </Shell>

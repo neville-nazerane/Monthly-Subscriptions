@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Settings"
+             x:Class="MonthlySubscriptions.Pages.SettingsPage">
+    <ContentPage.Content>
+
+        <Grid ColumnSpacing="20" 
+              RowSpacing="50"
+              Margin="10, 40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+
+            <Label Text="Changes your settings Without any settings"
+                        VerticalOptions="CenterAndExpand" 
+                        HorizontalOptions="CenterAndExpand" 
+                        Grid.ColumnSpan="2" />
+
+            <CheckBox Grid.Row="1" Grid.Column="0" />
+            
+            <Label Text="Change this stuff" 
+                   Grid.Row="1" Grid.Column="1" />
+
+            <CheckBox Grid.Row="2" Grid.Column="0" />
+
+            <Label Text="More Stuff" 
+                   Grid.Row="2" Grid.Column="1" />
+
+        </Grid>
+
+        
+    </ContentPage.Content>
+</ContentPage>

@@ -53,11 +53,21 @@ namespace MonthlySubscriptions.ViewModels
         public void SelectDay(int day)
         {
             Selection = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
+            data.Subscriptions[day] = new Subscription[] { 
+                new Subscription { 
+                    Price = 39              
+                },
+                new Subscription {
+                    Price = 90
+                }
+            };
+            Repository.Save(data);
+            UpdateDataFromDate();
         }
 
         public void UpdateDataFromDate()
         {
-            int numOfDays = DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month);
+            int numOfDays = SelectedDate.DaysInMonth();
 
             var days = Enumerable.Range(1, numOfDays).Select(i => new DayContext { Day = i }).ToArray();
 

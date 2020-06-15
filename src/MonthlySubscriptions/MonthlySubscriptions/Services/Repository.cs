@@ -14,7 +14,7 @@ namespace MonthlySubscriptions.Services
         
         public static void Save(MonthData data)
         {
-            data.YearMonth = StripDate(data.YearMonth);
+            data.YearMonth = data.YearMonth.StripMonthYear();
             using var db = new LiteDatabase(dbPath);
             var collection = db.GetCollection<MonthData>();
             if (!collection.Update(data)) collection.Insert(data);
@@ -24,25 +24,19 @@ namespace MonthlySubscriptions.Services
 
         public static void Remove(DateTime month)
         {
-            month = StripDate(month);
+            month = month.StripMonthYear();
             using var db = new LiteDatabase(dbPath);
             db.GetCollection<MonthData>().Delete(month);
         }
 
         public static MonthData Get(DateTime date)
         {
-            date = StripDate(date);
+            date = date.StripMonthYear();
             using var db = new LiteDatabase(dbPath);
             var res = db.GetCollection<MonthData>().FindById(date);
             return res ?? new MonthData {  YearMonth = date };
         }
 
-        public static DateTime StripDate(DateTime date)
-        {
-            string format = "MM-YYYY";
-            string strDate = date.ToString(format);
-            return DateTime.ParseExact(strDate, format, null);
-        }
 
     }
 }
