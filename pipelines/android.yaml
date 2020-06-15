@@ -3,21 +3,72 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
   outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+  apkPath: subscriptionsAndroid/com.companyname.monthlysubscriptions.apk
 
-steps:
-- task: NuGetToolInstaller@1
+stages:
+  - stage: Build
+    displayName: Build App
+    jobs:
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '**/*.sln'
+      - job: XamarinCompile
+        displayName: Building xamarin android
 
-- task: XamarinAndroid@1
-  inputs:
-    projectFile: '**/*droid*.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
+        steps:
+        - task: NuGetToolInstaller@1
+
+        - task: NuGetCommand@2
+          inputs:
+            command: 'restore'
+            restoreSolution: 'src/Monthly Subscriptions.sln'
+            feedsToUse: 'config'
+            nugetConfigPath: 'src/nuget.config'
+
+        - task: XamarinAndroid@1
+          inputs:
+            projectFile: 'src/MonthlySubscriptions/MonthlySubscriptions.Android/MonthlySubscriptions.Android.csproj'
+            outputDirectory: '$(outputDirectory)'
+            configuration: '$(buildConfiguration)'
+            msbuildVersionOption: 'latest'
+
+        - publish: $(outputDirectory)
+          artifact: subscriptionsAndroid
+        
+
+  - stage: AppCenterDeploy
+    displayName: Deploy to App Center
+    jobs:
+
+      - job: AppCenter
+
+        steps:
+
+        - download: current
+          artifact: subscriptionsAndroid
+          # patterns: $(apkPath)
+
+        - task: AndroidSigning@3
+          inputs:
+            apkFiles: $(Pipeline.Workspace)/$(apkPath)
+            apksignerKeystoreFile: 'subscriptions.jks'
+            apksignerKeystorePassword: '$(keystore.password)'
+            apksignerKeystoreAlias: 'key0'
+            apksignerKeyPassword: '$(key.password)'
+
+        - task: AppCenterDistribute@3
+          inputs:
+            serverEndpoint: 'My App Center'
+            appSlug: 'live.neville-live.com/Monthly-Subscriptions'
+            appFile: '$(Pipeline.Workspace)/$(apkPath)'
+            symbolsOption: 'Android'
+            releaseNotesOption: 'input'
+            releaseNotesInput: 'The lazy developer hasn''t added any actual release notes.'
+            destinationType: 'groups'
+            buildVersion: 1.0.$(Build.BuildId)
+          
+
+
