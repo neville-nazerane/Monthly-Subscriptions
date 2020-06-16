@@ -2,6 +2,7 @@
 using MonthlySubscriptions.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Xamarin.Essentials;
 
@@ -10,7 +11,7 @@ namespace MonthlySubscriptions.Services
     public static class Repository
     {
 
-        static readonly string dbPath = $"{FileSystem.AppDataDirectory}/main.db";
+        private static readonly string dbPath = $"{FileSystem.AppDataDirectory}/main.db";
         
         public static void Save(MonthData data)
         {
@@ -37,6 +38,7 @@ namespace MonthlySubscriptions.Services
             return res ?? new MonthData {  YearMonth = date };
         }
 
+        public static void ClearDatabase() => File.Delete(dbPath);
 
     }
 }

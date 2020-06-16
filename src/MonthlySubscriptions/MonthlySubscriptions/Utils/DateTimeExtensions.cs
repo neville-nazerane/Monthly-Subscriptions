@@ -17,5 +17,9 @@ namespace System
         public static int DaysInMonth(this DateTime date)
             => DateTime.DaysInMonth(date.Year, date.Month);
 
+        public static DateTime Clone(this DateTime date)
+            => new DateTime(date.Ticks);
+
+
     }
 }

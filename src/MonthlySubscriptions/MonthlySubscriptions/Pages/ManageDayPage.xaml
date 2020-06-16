@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MonthlySubscriptions.ViewModels"
+             xmlns:fa="http://avantipoint.com/mobiletoolkit"
+             xmlns:m="clr-namespace:MonthlySubscriptions.Models"
+             mc:Ignorable="d"
+             Title="{Binding Date, StringFormat='Manage {0:MMMM dd, yyyy}'}"
+             x:Class="MonthlySubscriptions.Pages.ManageDayPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{fa:IconImageSource 'fas fa-plus-circle'}" Text="Add" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.BindingContext>
+        <vm:ManageDayViewModel />
+    </ContentPage.BindingContext>
+    
+</ContentPage>

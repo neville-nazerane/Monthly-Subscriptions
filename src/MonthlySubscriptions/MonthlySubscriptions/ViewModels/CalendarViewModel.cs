@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace MonthlySubscriptions.ViewModels
 {
@@ -44,25 +46,28 @@ namespace MonthlySubscriptions.ViewModels
             NextCmd = new Command(() => SelectedDate = SelectedDate.AddMonths(1));
             PrevCmd = new Command(() => SelectedDate = SelectedDate.AddMonths(-1));
             CurrentCmd = new Command(() => SelectedDate = DateTime.Now);
-            SelectCmd = new Command<int>(SelectDay);
+            SelectCmd = new Command<int>(async day => await SelectDay(day));
 
             SelectedDate = DateTime.Now;
             UpdateDataFromDate();
         }
 
-        public void SelectDay(int day)
+        public async Task SelectDay(int day)
         {
-            Selection = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
-            data.Subscriptions[day] = new Subscription[] { 
-                new Subscription { 
-                    Price = 39              
-                },
-                new Subscription {
-                    Price = 90
-                }
-            };
-            Repository.Save(data);
-            UpdateDataFromDate();
+            var selected = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
+            await Shell.Current.GoToAsync("//calendar/manageDay?date=" + selected.Ticks);
+
+            //Selection = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
+            //data.Subscriptions[day] = new Subscription[] { 
+            //    new Subscription { 
+            //        Price = 39              
+            //    },
+            //    new Subscription {
+            //        Price = 90
+            //    }
+            //};
+            //Repository.Save(data);
+            //UpdateDataFromDate();
         }
 
         public void UpdateDataFromDate()

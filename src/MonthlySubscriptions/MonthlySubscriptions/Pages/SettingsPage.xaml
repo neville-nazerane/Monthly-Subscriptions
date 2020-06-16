@@ -3,16 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MonthlySubscriptions.ViewModels"
              mc:Ignorable="d"
              Title="Settings"
              x:Class="MonthlySubscriptions.Pages.SettingsPage">
+
+    <ContentPage.BindingContext>
+        <vm:SettingsViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
 
         <Grid ColumnSpacing="20" 
               RowSpacing="50"
               Margin="10, 40">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="{OnIdiom Phone=30, Tablet=40, Desktop=50}" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
@@ -20,6 +26,7 @@
                 <RowDefinition Height="20" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="20" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
             <Label Text="Changes your settings Without any settings"
@@ -36,6 +43,11 @@
 
             <Label Text="More Stuff" 
                    Grid.Row="2" Grid.Column="1" />
+
+            <Button Text="Clear Data"
+                    BackgroundColor="OrangeRed"
+                    Command="{Binding ClearDbCmd}"
+                    Grid.Row="3" Grid.ColumnSpan="2" />
 
         </Grid>
 

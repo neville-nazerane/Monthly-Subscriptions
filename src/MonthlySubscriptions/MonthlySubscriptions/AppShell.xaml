@@ -5,8 +5,13 @@
        xmlns:fa="http://avantipoint.com/mobiletoolkit"
         x:Class="MonthlySubscriptions.AppShell">
     <TabBar>
-        <Tab Title="Calendar" Icon="{fa:IconImageSource 'fas fa-calendar-alt'}">
+        <Tab Title="Calendar" Route="calendar" Icon="{fa:IconImageSource 'fas fa-calendar-alt'}">
             <pages:CalendarPage />
+
+            <!--<ShellContent Route="manageDay">
+                <pages:ManageDayPage />
+            </ShellContent>-->
+            
         </Tab>
         <Tab Title="Settings" Icon="{fa:IconImageSource 'fas fa-cogs'}" >
             <pages:SettingsPage />
