@@ -10,6 +10,8 @@ namespace MonthlySubscriptions.Models
 
         public int Day { get; set; }
 
+        public float TotalCost { get; set; }
+
         public ObservableCollection<Subscription> Subscriptions { get; set; }
 
     }

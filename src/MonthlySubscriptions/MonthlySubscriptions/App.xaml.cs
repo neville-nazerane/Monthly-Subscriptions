@@ -19,6 +19,7 @@ namespace MonthlySubscriptions
 
             MainPage = new AppShell();
             Routing.RegisterRoute("calendar/manageDay", typeof(ManageDayPage));
+            Routing.RegisterRoute("calendar/manageSubscription", typeof(ManageSubscriptionPage));
 
         }
 

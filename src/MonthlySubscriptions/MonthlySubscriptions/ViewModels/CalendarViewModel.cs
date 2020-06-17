@@ -79,7 +79,8 @@ namespace MonthlySubscriptions.ViewModels
             data = Repository.Get(SelectedDate);
 
             foreach (var item in data.Subscriptions)
-                days[item.Key - 1].Subscriptions = new ObservableCollection<Subscription>(item.Value);
+                days[item.Key - 1].TotalCost = item.Value?.Sum(s => s.Price) ?? 0;
+                //days[item.Key - 1].Subscriptions = new ObservableCollection<Subscription>(item.Value);
 
             Days = days;
         }

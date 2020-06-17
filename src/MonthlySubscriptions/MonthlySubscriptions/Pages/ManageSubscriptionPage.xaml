@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MonthlySubscriptions.ViewModels"
+             mc:Ignorable="d"
+             Title="{Binding Date, StringFormat='{0: :MMMM dd, yyyy} Subscription'}"
+             x:Class="MonthlySubscriptions.Pages.ManageSubscriptionPage">
+
+    <ContentPage.BindingContext>
+        <vm:ManageSubscriptionViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <AbsoluteLayout Padding="20">
+            <FlexLayout Direction="Column"
+                        JustifyContent="SpaceEvenly"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, .8"
+                        AbsoluteLayout.LayoutFlags="SizeProportional">
+
+                <Entry Placeholder="Title" 
+                       Text="{Binding Data.Title}" />
+                <Entry Placeholder="Price"
+                       Text="{Binding Data.Price}"
+                       Keyboard="Numeric" />
+                <Editor Placeholder="Description"
+                        Text="{Binding Data.Description}"/>
+
+            </FlexLayout>
+
+            <Button Text="Save"
+                    Command="{Binding SaveCmd}"
+                    BackgroundColor="Green"
+                    AbsoluteLayout.LayoutBounds=".5, 1, .8, AutoSize"
+                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"/>
+
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

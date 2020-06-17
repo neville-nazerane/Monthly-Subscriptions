@@ -11,7 +11,9 @@
              x:Class="MonthlySubscriptions.Pages.ManageDayPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{fa:IconImageSource 'fas fa-plus-circle'}" Text="Add" />
+        <ToolbarItem IconImageSource="{fa:IconImageSource 'fas fa-plus-circle'}" 
+                     Command="{Binding GoToAddCmd}"
+                     Text="Add" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.BindingContext>

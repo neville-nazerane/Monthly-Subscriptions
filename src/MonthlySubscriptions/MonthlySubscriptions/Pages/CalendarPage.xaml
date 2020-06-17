@@ -5,11 +5,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:MonthlySubscriptions.ViewModels"
              xmlns:m="clr-namespace:MonthlySubscriptions.Models"
+             xmlns:controls="clr-namespace:MonthlySubscriptions.Controls"
              xmlns:fa="http://avantipoint.com/mobiletoolkit"
              mc:Ignorable="d"
              Title="Calendar"
              x:Class="MonthlySubscriptions.Pages.CalendarPage">
 
+    <ContentPage.Resources>
+        <DataTemplate x:Key="onlyDay" x:DataType="m:DayContext">
+                <Label Text="{Binding Day}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCmd, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
+                                                          CommandParameter="{Binding Day}" />
+                    </Label.GestureRecognizers>
+                </Label>
+        </DataTemplate>
+
+        <DataTemplate x:Key="withPrice" x:DataType="m:DayContext">
+            <StackLayout BackgroundColor="ForestGreen">
+                <Label Text="{Binding TotalCost}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center" />
+
+                <Label Text="{Binding Day}" FontSize="Small" />
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectCmd, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
+                                                          CommandParameter="{Binding Day}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </DataTemplate>
+        
+        <controls:DayTemplateSelector x:Key="daySelector"
+                                      DayWithCostTemplate="{StaticResource withPrice}"
+                                      OnlyDayTemplate="{StaticResource onlyDay}" />
+
+    </ContentPage.Resources>
+    
     <ContentPage.BindingContext>
         <vm:CalendarViewModel />
     </ContentPage.BindingContext>
@@ -40,38 +74,14 @@
             </Grid>
 
             <CollectionView ItemsSource="{Binding Days}"
-                            SelectionMode="None" >
+                            SelectionMode="None"
+                            ItemTemplate="{StaticResource daySelector}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"
                                      VerticalItemSpacing="12"
                                      HorizontalItemSpacing="4"
                                      Span="7" />
                 </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:DayContext">
-                        <StackLayout>
-                            <Label Text="{Binding Day}"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center" >
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectCmd, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
-                                                          CommandParameter="{Binding Day}" />
-                                </Label.GestureRecognizers>
-                            </Label>
-
-                            <StackLayout BindableLayout.ItemsSource="{Binding Subscriptions}" >
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate x:DataType="m:Subscription">
-                                        <Label Text="{Binding Price}" 
-                                               TextColor="OrangeRed"
-                                               FontSize="Medium" />
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </StackLayout>
-                            
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
             </CollectionView>
 
             <Label Text="{Binding Selection, StringFormat='{0:MMMM dd, yyyy}'}" 
