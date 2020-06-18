@@ -12,30 +12,38 @@
              x:Class="MonthlySubscriptions.Pages.CalendarPage">
 
     <ContentPage.Resources>
+
         <DataTemplate x:Key="onlyDay" x:DataType="m:DayContext">
+            <Frame BorderColor="Black" Padding="0" HeightRequest="50" HasShadow="False">
                 <Label Text="{Binding Day}"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center" >
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center" >
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectCmd, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
                                                           CommandParameter="{Binding Day}" />
                     </Label.GestureRecognizers>
                 </Label>
+            </Frame>
         </DataTemplate>
 
         <DataTemplate x:Key="withPrice" x:DataType="m:DayContext">
-            <StackLayout BackgroundColor="ForestGreen">
-                <Label Text="{Binding TotalCost}"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center" />
+            <AbsoluteLayout BackgroundColor="GreenYellow" HeightRequest="50">
+                <Label Text="{Binding TotalCost, StringFormat='${0}'}"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       AbsoluteLayout.LayoutBounds=".5, .5, AutoSize, AutoSize"
+                       AbsoluteLayout.LayoutFlags="PositionProportional" />
 
-                <Label Text="{Binding Day}" FontSize="Small" />
+                <Label Text="{Binding Day}" 
+                       FontSize="Small"
+                       AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"
+                       AbsoluteLayout.LayoutFlags="YProportional" />
 
-                <StackLayout.GestureRecognizers>
+                <AbsoluteLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectCmd, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
                                                           CommandParameter="{Binding Day}" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                </AbsoluteLayout.GestureRecognizers>
+            </AbsoluteLayout>
         </DataTemplate>
         
         <controls:DayTemplateSelector x:Key="daySelector"
@@ -49,8 +57,13 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -75,7 +88,8 @@
 
             <CollectionView ItemsSource="{Binding Days}"
                             SelectionMode="None"
-                            ItemTemplate="{StaticResource daySelector}">
+                            ItemTemplate="{StaticResource daySelector}"
+                            Grid.Row="1">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"
                                      VerticalItemSpacing="12"
@@ -86,6 +100,6 @@
 
             <Label Text="{Binding Selection, StringFormat='{0:MMMM dd, yyyy}'}" 
                    FontSize="Large" />
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

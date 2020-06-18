@@ -1,4 +1,5 @@
-﻿using MonthlySubscriptions.ViewModels;
+﻿using MonthlySubscriptions.Utils;
+using MonthlySubscriptions.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +15,27 @@ namespace MonthlySubscriptions.Pages
 
     [QueryProperty("Date", "date")]
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ManageDayPage : ContentPage
+    public partial class ManageDayPage : ContentPage, IViewModelUtil<ManageDayViewModel>
     {
 
         public string Date
         {
             set
             {
-                ViewModel.Date = new DateTime(long.Parse(value));
+                this.GetViewModel().Date = new DateTime(long.Parse(value));
             }
         }
 
-        ManageDayViewModel ViewModel => BindingContext as ManageDayViewModel;
 
         public ManageDayPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            this.GetViewModel().Appearing();
+            base.OnAppearing();
         }
     }
 }

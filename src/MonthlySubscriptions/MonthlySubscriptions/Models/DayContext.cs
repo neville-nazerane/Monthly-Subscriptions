@@ -12,7 +12,5 @@ namespace MonthlySubscriptions.Models
 
         public float TotalCost { get; set; }
 
-        public ObservableCollection<Subscription> Subscriptions { get; set; }
-
     }
 }

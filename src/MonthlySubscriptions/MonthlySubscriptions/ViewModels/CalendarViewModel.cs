@@ -49,6 +49,10 @@ namespace MonthlySubscriptions.ViewModels
             SelectCmd = new Command<int>(async day => await SelectDay(day));
 
             SelectedDate = DateTime.Now;
+        }
+
+        public void Appearing()
+        {
             UpdateDataFromDate();
         }
 
@@ -56,18 +60,6 @@ namespace MonthlySubscriptions.ViewModels
         {
             var selected = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
             await Shell.Current.GoToAsync("//calendar/manageDay?date=" + selected.Ticks);
-
-            //Selection = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
-            //data.Subscriptions[day] = new Subscription[] { 
-            //    new Subscription { 
-            //        Price = 39              
-            //    },
-            //    new Subscription {
-            //        Price = 90
-            //    }
-            //};
-            //Repository.Save(data);
-            //UpdateDataFromDate();
         }
 
         public void UpdateDataFromDate()
@@ -80,8 +72,6 @@ namespace MonthlySubscriptions.ViewModels
 
             foreach (var item in data.Subscriptions)
                 days[item.Key - 1].TotalCost = item.Value?.Sum(s => s.Price) ?? 0;
-                //days[item.Key - 1].Subscriptions = new ObservableCollection<Subscription>(item.Value);
-
             Days = days;
         }
 

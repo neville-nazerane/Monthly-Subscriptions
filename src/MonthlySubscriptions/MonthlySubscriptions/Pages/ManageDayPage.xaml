@@ -4,8 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:MonthlySubscriptions.ViewModels"
-             xmlns:fa="http://avantipoint.com/mobiletoolkit"
              xmlns:m="clr-namespace:MonthlySubscriptions.Models"
+             xmlns:fa="http://avantipoint.com/mobiletoolkit"
              mc:Ignorable="d"
              Title="{Binding Date, StringFormat='Manage {0:MMMM dd, yyyy}'}"
              x:Class="MonthlySubscriptions.Pages.ManageDayPage">
@@ -19,5 +19,52 @@
     <ContentPage.BindingContext>
         <vm:ManageDayViewModel />
     </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <CollectionView ItemsSource="{Binding Subscriptions}"
+                        Margin="{OnIdiom Watch=0, Phone=15, Tablet=30, Desktop=50}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="20" />
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:Subscription">
+                    <Frame BorderColor="Gray"
+                           BackgroundColor="#dadada"
+                           HasShadow="False"
+                           CornerRadius="10">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{OnIdiom Phone=25, Tablet=35}" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            
+                            <Label Text="{Binding Title}" 
+                                   TextColor="Black" 
+                                   FontAttributes="Bold"
+                                   FontSize="Large" />
+
+                            <Label Text="{Binding Price, StringFormat='${0}'}"
+                                   FontSize="Medium"
+                                   TextColor="Green"
+                                   FontAttributes="Bold"
+                                   Grid.Column="1" />
+
+                            <Label Text="{Binding Description}"
+                                   Grid.Row="1" Grid.ColumnSpan="2" />
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
     
 </ContentPage>
