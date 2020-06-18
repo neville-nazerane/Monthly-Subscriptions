@@ -11,6 +11,10 @@
              Title="Calendar"
              x:Class="MonthlySubscriptions.Pages.CalendarPage">
 
+    <ContentPage.BindingContext>
+        <vm:CalendarViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Resources>
 
         <DataTemplate x:Key="onlyDay" x:DataType="m:DayContext">
@@ -51,40 +55,42 @@
                                       OnlyDayTemplate="{StaticResource onlyDay}" />
 
     </ContentPage.Resources>
-    
-    <ContentPage.BindingContext>
-        <vm:CalendarViewModel />
-    </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
-        <Grid>
+        <Grid RowSpacing="20" Padding="15">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                
-                <Button Text="{fa:Icon 'fas fa-arrow-circle-left'}"
+
+            <Frame BorderColor="Black"
+                   CornerRadius="12"
+                   Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Text="{fa:Icon 'fas fa-arrow-circle-left'}"
                         Command="{Binding PrevCmd}"/>
-                <Label Text="{Binding SelectedDate, StringFormat='{0:MM-yyyy}'}"   
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
-                       Grid.Column="1" >
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding CurrentCmd}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Button Text="{fa:Icon 'fas fa-arrow-circle-right'}"
+                    <Label Text="{Binding SelectedDate, StringFormat='{0:MM-yyyy}'}"   
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontAttributes="Bold"
+                           TextColor="DarkOrange"
+                            Grid.Column="1" >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CurrentCmd}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Button Text="{fa:Icon 'fas fa-arrow-circle-right'}"
                         Command="{Binding NextCmd}"
-                        Grid.Column="2" />      
-            </Grid>
+                        Grid.Column="2" />
+                </Grid>
+            </Frame>
 
             <CollectionView ItemsSource="{Binding Days}"
                             SelectionMode="None"
@@ -98,8 +104,6 @@
                 </CollectionView.ItemsLayout>
             </CollectionView>
 
-            <Label Text="{Binding Selection, StringFormat='{0:MMMM dd, yyyy}'}" 
-                   FontSize="Large" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
