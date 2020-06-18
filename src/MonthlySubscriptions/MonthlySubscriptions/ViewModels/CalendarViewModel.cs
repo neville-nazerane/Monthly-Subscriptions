@@ -74,7 +74,7 @@ namespace MonthlySubscriptions.ViewModels
             data = Repository.Get(SelectedDate);
 
             foreach (var item in data.Subscriptions)
-                days[item.Key - 1].TotalCost = item.Value?.Sum(s => s.Price) ?? 0;
+                days[item.Key - 1].CurrentCost = item.Value?.Sum(s => s.Price) ?? 0;
 
             if (SelectedDate.Date > DateTime.Now.Date)
             {
@@ -87,7 +87,7 @@ namespace MonthlySubscriptions.ViewModels
             }
 
             Days = days;
-            Total = days.Sum(d => d.TotalCost);
+            Total = days.Sum(d => d.Total);
         }
 
     }

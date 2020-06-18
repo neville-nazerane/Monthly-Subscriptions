@@ -14,7 +14,7 @@ namespace MonthlySubscriptions.ValueConverters
             var day = (DayContext)value;
             if (day.PredictedTotal > 0)
                 return Color.LightBlue;
-            else if (day.TotalCost > 0)
+            else if (day.CurrentCost > 0)
                 return Color.GreenYellow;
             else return Color.White;
         }

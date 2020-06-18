@@ -10,7 +10,10 @@ namespace MonthlySubscriptions.Models
 
         public int Day { get; set; }
 
-        public float TotalCost { get; set; }
+        public float CurrentCost { get; set; }
         public float PredictedTotal { get; set; }
+
+        public float Total => CurrentCost + PredictedTotal;
+
     }
 }

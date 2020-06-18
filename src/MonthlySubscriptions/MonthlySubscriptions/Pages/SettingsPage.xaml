@@ -36,7 +36,7 @@
 
             <CheckBox Grid.Row="1" Grid.Column="0" />
             
-            <Label Text="Change this stuff" 
+            <Label Text="Enable Predictions" 
                    Grid.Row="1" Grid.Column="1" />
 
             <CheckBox Grid.Row="2" Grid.Column="0" />

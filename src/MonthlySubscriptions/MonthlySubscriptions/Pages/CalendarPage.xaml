@@ -19,8 +19,6 @@
     <ContentPage.Resources>
 
         <converter:DayToColor x:Key="dayToColor" />
-        <converter:DayToCost x:Key="dayToCost" />
-
         <DataTemplate x:Key="onlyDay" x:DataType="m:DayContext">
             <Frame BorderColor="Black" Padding="0" HeightRequest="50" HasShadow="False">
                 <Label Text="{Binding Day}"
@@ -36,7 +34,7 @@
 
         <DataTemplate x:Key="withPrice" x:DataType="m:DayContext">
             <AbsoluteLayout BackgroundColor="{Binding Converter={x:StaticResource dayToColor}}" HeightRequest="50">
-                <Label Text="{Binding Converter={x:StaticResource dayToCost}, StringFormat='${0}'}"
+                <Label Text="{Binding Total, StringFormat='${0}'}"
                        FontAttributes="Bold"
                        FontSize="Micro"
                        AbsoluteLayout.LayoutBounds=".5, .5, AutoSize, AutoSize"
