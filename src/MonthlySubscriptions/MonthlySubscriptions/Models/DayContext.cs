@@ -11,6 +11,6 @@ namespace MonthlySubscriptions.Models
         public int Day { get; set; }
 
         public float TotalCost { get; set; }
-
+        public float PredictedTotal { get; set; }
     }
 }

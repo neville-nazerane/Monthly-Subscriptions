@@ -75,6 +75,17 @@ namespace MonthlySubscriptions.ViewModels
 
             foreach (var item in data.Subscriptions)
                 days[item.Key - 1].TotalCost = item.Value?.Sum(s => s.Price) ?? 0;
+
+            if (SelectedDate.Date > DateTime.Now.Date)
+            {
+                var prediction = Repository.Get(DateTime.Now);
+
+                foreach (var item  in prediction.Subscriptions)
+                    days[item.Key - 1].PredictedTotal = item.Value?.Sum(s => s.Price) ?? 0;
+
+                // handle max days
+            }
+
             Days = days;
             Total = days.Sum(d => d.TotalCost);
         }

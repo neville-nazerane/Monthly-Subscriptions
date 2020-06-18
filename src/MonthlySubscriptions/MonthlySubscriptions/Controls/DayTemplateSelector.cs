@@ -16,7 +16,7 @@ namespace MonthlySubscriptions.Controls
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             var data = (DayContext)item;
-            if (data.TotalCost == 0)
+            if (data.TotalCost == 0 && data.PredictedTotal == 0)
                 return OnlyDayTemplate;
             else return DayWithCostTemplate;
         }

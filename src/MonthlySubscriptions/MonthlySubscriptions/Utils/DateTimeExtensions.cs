@@ -20,6 +20,5 @@ namespace System
         public static DateTime Clone(this DateTime date)
             => new DateTime(date.Ticks);
 
-
     }
 }
