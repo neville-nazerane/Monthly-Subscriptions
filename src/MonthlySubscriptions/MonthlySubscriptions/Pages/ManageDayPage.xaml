@@ -42,7 +42,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="{OnIdiom Phone=25, Tablet=35}" />
+                                <RowDefinition Height="{OnIdiom Phone=30, Tablet=35}" />
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             

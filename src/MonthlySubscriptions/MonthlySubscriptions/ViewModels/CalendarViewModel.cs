@@ -18,6 +18,7 @@ namespace MonthlySubscriptions.ViewModels
         private DateTime _selectedDate;
         private MonthData data;
         private DateTime? _selection;
+        private float _total;
 
         public DateTime? Selection { get => _selection; set => SetProperty(ref _selection, value); }
 
@@ -31,6 +32,8 @@ namespace MonthlySubscriptions.ViewModels
                 Selection = null;
             }
         }
+
+        public float Total { get => _total; set => SetProperty(ref _total, value); }
 
         public IEnumerable<DayContext> Days { get => _days; set => SetProperty(ref _days, value); }
 
@@ -73,6 +76,7 @@ namespace MonthlySubscriptions.ViewModels
             foreach (var item in data.Subscriptions)
                 days[item.Key - 1].TotalCost = item.Value?.Sum(s => s.Price) ?? 0;
             Days = days;
+            Total = days.Sum(d => d.TotalCost);
         }
 
     }

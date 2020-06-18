@@ -34,7 +34,6 @@
             <AbsoluteLayout BackgroundColor="GreenYellow" HeightRequest="50">
                 <Label Text="{Binding TotalCost, StringFormat='${0}'}"
                        FontAttributes="Bold"
-                       FontSize="Medium"
                        AbsoluteLayout.LayoutBounds=".5, .5, AutoSize, AutoSize"
                        AbsoluteLayout.LayoutFlags="PositionProportional" />
 
@@ -62,6 +61,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <Frame BorderColor="Black"
@@ -103,6 +103,10 @@
                                      Span="7" />
                 </CollectionView.ItemsLayout>
             </CollectionView>
+
+            <Label Text="{Binding Total, StringFormat='Total: ${0}'}"
+                   FontSize="Large"
+                   Grid.Row="2" />
 
         </Grid>
     </ContentPage.Content>
