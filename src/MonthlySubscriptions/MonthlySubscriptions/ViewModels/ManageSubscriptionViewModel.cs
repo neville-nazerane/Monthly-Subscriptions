@@ -28,7 +28,7 @@ namespace MonthlySubscriptions.ViewModels
             GoToDayCmd = new Command(async () => await GoToDayAsync());
         }
 
-        private Task GoToDayAsync() => Shell.Current.GoToAsync("//calendar/manageDay?date" + Date.Ticks);
+        private Task GoToDayAsync() => Shell.Current.GoToAsync("//calendar/manageDay?date=" + Date.Ticks);
 
         public Task SaveAsync()
         {
