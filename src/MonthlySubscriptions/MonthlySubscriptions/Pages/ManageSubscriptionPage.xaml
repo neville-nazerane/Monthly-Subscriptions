@@ -29,11 +29,29 @@
 
             </FlexLayout>
 
-            <Button Text="Save"
-                    Command="{Binding SaveCmd}"
-                    BackgroundColor="Green"
-                    AbsoluteLayout.LayoutBounds=".5, 1, .8, AutoSize"
-                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"/>
+            <Grid AbsoluteLayout.LayoutBounds=".5, 1, 1, 50"
+                  ColumnSpacing="2"
+                  AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+
+                <Button Text="Delete"
+                        Command="{Binding DeleteCmd}"
+                        IsVisible="{Binding IsEditing}"
+                        BackgroundColor="Red" />
+                
+                <Button Text="Save"
+                        Command="{Binding SaveCmd}"
+                        BackgroundColor="Green" 
+                        Grid.Column="1"/>
+                
+            </Grid>
+
+      
 
         </AbsoluteLayout>
     </ContentPage.Content>

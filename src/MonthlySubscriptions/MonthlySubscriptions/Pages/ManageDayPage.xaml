@@ -7,7 +7,7 @@
              xmlns:m="clr-namespace:MonthlySubscriptions.Models"
              xmlns:fa="http://avantipoint.com/mobiletoolkit"
              mc:Ignorable="d"
-             Title="{Binding Date, StringFormat='Manage {0:MMMM dd, yyyy}'}"
+             Title="{Binding Date, StringFormat='{0:MMMM dd, yyyy}'}"
              x:Class="MonthlySubscriptions.Pages.ManageDayPage">
 
     <ContentPage.ToolbarItems>
@@ -22,6 +22,7 @@
 
     <ContentPage.Content>
         <CollectionView ItemsSource="{Binding Subscriptions}"
+                        Footer="{Binding}"
                         Margin="{OnIdiom Watch=0, Phone=15, Tablet=30, Desktop=50}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
@@ -61,9 +62,24 @@
                                    Grid.Row="1" Grid.ColumnSpan="2" />
 
                         </Grid>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EditCmd, Source={x:RelativeSource AncestorType={x:Type vm:ManageDayViewModel}}}"
+                                                  CommandParameter="{Binding Title}" />
+                        </Frame.GestureRecognizers>
+                        
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
+            <CollectionView.FooterTemplate>
+                <DataTemplate x:DataType="vm:ManageDayViewModel">
+                    <Label Text="{Binding Total, StringFormat='Total: ${0}'}"
+                           FontSize="Title" 
+                           FontAttributes="Bold" />
+                </DataTemplate>
+            </CollectionView.FooterTemplate>
+            
         </CollectionView>
     </ContentPage.Content>
     
