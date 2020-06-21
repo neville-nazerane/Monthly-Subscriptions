@@ -22,12 +22,21 @@
 
     <ContentPage.Content>
         <CollectionView ItemsSource="{Binding Subscriptions}"
+                        IsGrouped="True"
                         Footer="{Binding}"
                         Margin="{OnIdiom Watch=0, Phone=15, Tablet=30, Desktop=50}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
                                    ItemSpacing="20" />
             </CollectionView.ItemsLayout>
+
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate x:DataType="m:GroupedSubscription">
+                    <Label Text="{Binding Title}"
+                           BackgroundColor="LightBlue"
+                           FontSize="Large" />
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
             
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="m:Subscription">
