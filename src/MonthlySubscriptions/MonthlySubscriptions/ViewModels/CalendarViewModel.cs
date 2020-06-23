@@ -73,6 +73,9 @@ namespace MonthlySubscriptions.ViewModels
 
             data = Repository.Get(SelectedDate);
 
+            foreach (var item in data.Subscriptions)
+                days[item.Key - 1].CurrentCost = item.Value?.Sum(s => s.Price) ?? 0;
+
             if (SelectedDate.Date > DateTime.Now.Date)
             {
                 var prediction = Repository.Get(DateTime.Now);
@@ -94,8 +97,7 @@ namespace MonthlySubscriptions.ViewModels
             }
             else
             {
-                foreach (var item in data.Subscriptions)
-                    days[item.Key - 1].CurrentCost = item.Value?.Sum(s => s.Price) ?? 0;
+                
             }
 
             Days = days;

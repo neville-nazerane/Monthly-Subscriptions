@@ -53,6 +53,14 @@ namespace MonthlySubscriptions.ViewModels
 
             var allSubs = new List<GroupedSubscription>();
 
+            var currentSubs = data.Subscriptions.GetValueOrDefault(Date.Day);
+            if (currentSubs?.Any() == true)
+            {
+                allSubs.Add(new GroupedSubscription(currentTitle) {
+                    data.Subscriptions.GetValueOrDefault(Date.Day)
+                });
+            }
+
             if (Date.Month > DateTime.Now.Month)
             {
 
@@ -74,14 +82,11 @@ namespace MonthlySubscriptions.ViewModels
                         allSubs.Add(new GroupedSubscription(canceledTitle, cancelled));
                     }
 
-                    Total = predictions.Sum(s => s.Price);
+                    Total = predictions.Sum(s => s.Price) + currentSubs?.Sum(s => s.Price) ?? 0;
                 }
             }
             else
             {
-                allSubs.Add(new GroupedSubscription(currentTitle) {
-                    data.Subscriptions.GetValueOrDefault(Date.Day)
-                });
                 Total = allSubs.FirstOrDefault()?.Sum(s => s.Price) ?? 0;
             }
 
