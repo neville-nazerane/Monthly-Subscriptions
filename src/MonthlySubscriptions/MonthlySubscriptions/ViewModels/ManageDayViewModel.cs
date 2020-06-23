@@ -15,6 +15,7 @@ namespace MonthlySubscriptions.ViewModels
     {
         private const string currentTitle = "Saved";
         private const string predictedTitle = "Predicted";
+        private const string canceledTitle = "Canceled";
         private DateTime _date;
         private IEnumerable<GroupedSubscription> _subscriptions;
         private float _total;
@@ -37,24 +38,47 @@ namespace MonthlySubscriptions.ViewModels
 
         public void Appearing()
         {
+
+            var data = Repository.Get(Date);
+
+            if (data is null) return;
+
             var allSubs = new List<GroupedSubscription> 
             { 
                 new GroupedSubscription(currentTitle) {
-                    Repository.Get(Date)?.Subscriptions?.GetValueOrDefault(Date.Day)
+                    data.Subscriptions.GetValueOrDefault(Date.Day)
                 }
             };
 
             if (Date.Month > DateTime.Now.Month)
             {
-                allSubs.Add(new GroupedSubscription(predictedTitle) 
+
+                var predictions = Repository.Get(DateTime.Now)?.Subscriptions?.GetValueOrDefault(Date.Day);
+
+                if (predictions?.Any() == true)
                 {
-                    Repository.Get(DateTime.Now)?.Subscriptions?.GetValueOrDefault(Date.Day)
-                });
+                    var cancelled = data.CanceledSubscriptions.GetValueOrDefault(Date.Day);
+
+                    if (cancelled?.Any() == true)
+                    {
+                        predictions = predictions.Except(cancelled);
+                    }
+
+                    allSubs.Add(new GroupedSubscription(predictedTitle, predictions));
+
+                    if (cancelled?.Any() == true)
+                    {
+                        allSubs.Add(new GroupedSubscription(canceledTitle, cancelled));
+                    }
+                }
+
+            }
+            else
+            {
+                Total = allSubs.FirstOrDefault()?.Sum(s => s.Price) ?? 0;
             }
 
             Subscriptions = allSubs;
-
-            Total = Subscriptions.SelectMany(s => s).Sum(s => s.Price);
 
             //Subscriptions = Repository.Get(Date)?.Subscriptions.GetValueOrDefault(Date.Day);
             //Total = Subscriptions.Sum(s => s.Price);

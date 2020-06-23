@@ -18,6 +18,12 @@ namespace MonthlySubscriptions.Models
             Title = title;
         }
 
+        public GroupedSubscription(string title, IEnumerable<Subscription> subscriptions)
+        {
+            Title = title;
+            Add(subscriptions);
+        }
+
         public void Add(IEnumerable<Subscription> subscriptions)
         {
             if (subscriptions != null)

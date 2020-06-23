@@ -12,10 +12,12 @@ namespace MonthlySubscriptions.Models
 
         public Dictionary<int, IEnumerable<Subscription>> Subscriptions { get; set; }
 
+        public Dictionary<int, IEnumerable<Subscription>> CanceledSubscriptions { get; set; }
 
         public MonthData()
         {
             Subscriptions = new Dictionary<int, IEnumerable<Subscription>>();
+            CanceledSubscriptions = new Dictionary<int, IEnumerable<Subscription>>();
         }
 
     }
