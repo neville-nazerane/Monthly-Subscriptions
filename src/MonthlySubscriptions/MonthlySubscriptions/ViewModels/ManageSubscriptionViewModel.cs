@@ -75,6 +75,12 @@ namespace MonthlySubscriptions.ViewModels
             {
                 if (current.Subscriptions.TryGetValue(Date.Day, out var subscriptions))
                 {
+                    if (subscriptions.Any(s => s.Title == Data.Title))
+                    {
+                        await Shell.Current.DisplayAlert("Title exists", "You already have that subscription!", "OK");
+                        return;
+                    }
+
                     current.Subscriptions[Date.Day] = new List<Subscription>(subscriptions)
                     {
                         Data

@@ -63,7 +63,7 @@ namespace MonthlySubscriptions.ViewModels
         {
             var selected = new DateTime(SelectedDate.Year, SelectedDate.Month, day);
             await Shell.Current.GoToAsync("//calendar/manageDay?date=" + selected.Ticks);
-        }
+        } 
 
         public void UpdateDataFromDate()
         {
@@ -73,17 +73,29 @@ namespace MonthlySubscriptions.ViewModels
 
             data = Repository.Get(SelectedDate);
 
-            foreach (var item in data.Subscriptions)
-                days[item.Key - 1].CurrentCost = item.Value?.Sum(s => s.Price) ?? 0;
-
             if (SelectedDate.Date > DateTime.Now.Date)
             {
                 var prediction = Repository.Get(DateTime.Now);
+                
+                foreach (var item in prediction.Subscriptions)
+                {
+                    var subs = item.Value;
+                    var cancelled = data.CanceledSubscriptions.GetValueOrDefault(item.Key);
+                    
+                    if (subs != null && cancelled != null)
+                    {
+                        subs = subs.Where(s => !cancelled.Any(c => c.Title == s.Title));
+                    }
 
-                foreach (var item  in prediction.Subscriptions)
-                    days[item.Key - 1].PredictedTotal = item.Value?.Sum(s => s.Price) ?? 0;
+                    days[item.Key - 1].PredictedTotal = subs?.Sum(s => s.Price) ?? 0;
+                }
 
                 // handle max days
+            }
+            else
+            {
+                foreach (var item in data.Subscriptions)
+                    days[item.Key - 1].CurrentCost = item.Value?.Sum(s => s.Price) ?? 0;
             }
 
             Days = days;
