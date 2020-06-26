@@ -75,7 +75,8 @@ namespace MonthlySubscriptions.ViewModels
                         predictions = predictions.Where(p => !cancelled.Any(c => c.Title == p.Title));
                     }
 
-                    allSubs.Add(new GroupedSubscription(predictedTitle, predictions));
+                    if (predictions?.Any() == true)
+                        allSubs.Add(new GroupedSubscription(predictedTitle, predictions));
 
                     if (cancelled?.Any() == true)
                     {
