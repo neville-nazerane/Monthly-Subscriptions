@@ -1,4 +1,5 @@
 ﻿using MonthlySubscriptions.Services;
+using Plugin.FilePicker;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,9 +38,12 @@ namespace MonthlySubscriptions.ViewModels
             var status = await Permissions.RequestAsync<Permissions.StorageRead>();
             if (status == PermissionStatus.Granted)
             {
-                await Shell.Current.DisplayAlert("OK!!!", "I WILL NOT", "Cancel");
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                var files = Directory.GetFiles(path);
+                var dirs = DependencyService.Get<IFileProviderService>().GetDirectories();
+
+                await Shell.Current.DisplayActionSheet("Pick your poy poy", "Cancel", null, dirs);
+
+                //var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                //var files = Directory.GetFiles(path);
             }
             else
             {
