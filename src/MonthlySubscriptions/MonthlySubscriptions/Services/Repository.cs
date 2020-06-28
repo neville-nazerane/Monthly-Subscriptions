@@ -38,6 +38,11 @@ namespace MonthlySubscriptions.Services
             return res ?? new MonthData {  YearMonth = date };
         }
 
+        public static void BackupTo(string location)
+        {
+            File.Copy(dbPath, Path.Combine(location, "mystuff.db"), true);
+        }
+
         public static void ClearDatabase() => File.Delete(dbPath);
 
     }

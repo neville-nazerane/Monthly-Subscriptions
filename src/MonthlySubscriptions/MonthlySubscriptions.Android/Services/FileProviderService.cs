@@ -13,6 +13,7 @@ using Android.Widget;
 using Java.IO;
 using MonthlySubscriptions.Droid.Services;
 using MonthlySubscriptions.Services;
+using Org.Apache.Http.Impl.Client;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(FileProviderService))]
@@ -38,6 +39,14 @@ namespace MonthlySubscriptions.Droid.Services
             var files = Android.OS.Environment.ExternalStorageDirectory;
             return (from f in files.ListFiles() where f.IsDirectory select f.Name).ToArray();
         }
+
+        public string GetBackupPath()
+        {
+            var folder = new File(Android.OS.Environment.ExternalStorageDirectory + File.Separator + "monthlySubscriptions");
+            if (!folder.Exists()) folder.Mkdirs();
+            return folder.AbsolutePath;
+        }
+
 
     }
 }
