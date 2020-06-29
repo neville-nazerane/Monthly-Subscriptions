@@ -16,16 +16,10 @@
     
     <ContentPage.Content>
 
-        <Grid ColumnSpacing="20" 
-              RowSpacing="50"
-              Margin="10, 40"
-              RowDefinitions="20, 20, 20, 50, 50">
+        <FlexLayout Direction="Column" 
+                    JustifyContent="SpaceEvenly"
+                    AlignItems="Center">
             
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{OnIdiom Phone=30, Tablet=40, Desktop=50}" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
             <Label Text="Changes your settings Without any settings"
                         VerticalOptions="CenterAndExpand" 
                         HorizontalOptions="CenterAndExpand" 
@@ -67,7 +61,7 @@
                     BackgroundColor="OrangeRed"
                     Command="{Binding BackUpCmd}"
                     Grid.Row="4" Grid.ColumnSpan="2" />-->
-        </Grid>
+        </FlexLayout>
 
         
     </ContentPage.Content>
