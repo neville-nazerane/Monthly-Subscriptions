@@ -17,6 +17,7 @@
 
         <Style TargetType="Button">
             <Setter Property="Visual" Value="Material" />
+            <Setter Property="BackgroundColor" Value="OrangeRed" />
         </Style>
 
     </Application.Resources>

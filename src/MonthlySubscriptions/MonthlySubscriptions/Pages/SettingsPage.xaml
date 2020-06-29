@@ -4,6 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:MonthlySubscriptions.ViewModels"
+             xmlns:comp="clr-namespace:MonthlySubscriptions.Components"
+             xmlns:fa="http://avantipoint.com/mobiletoolkit"
              mc:Ignorable="d"
              Title="Settings"
              x:Class="MonthlySubscriptions.Pages.SettingsPage">
@@ -18,6 +20,7 @@
               RowSpacing="50"
               Margin="10, 40"
               RowDefinitions="20, 20, 20, 50, 50">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{OnIdiom Phone=30, Tablet=40, Desktop=50}" />
                 <ColumnDefinition Width="*" />
@@ -39,14 +42,31 @@
                    Grid.Row="2" Grid.Column="1" />
 
             <Button Text="Clear Data"
-                    BackgroundColor="OrangeRed"
+                    ImageSource="{FontImage Glyph={fa:Icon 'fas fa-calendar-times'}}"
                     Command="{Binding ClearDbCmd}"
                     Grid.Row="3" Grid.ColumnSpan="2" />
-            
-          <Button Text="DO IT"
+
+            <comp:SectionView TitleText="Backup"
+                        Grid.Row="4" Grid.ColumnSpan="2">
+
+                <!--<comp:SectionView.Title>
+                    <Label Text="Backing up" FontSize="Large" />
+                </comp:SectionView.Title>-->
+                
+                <comp:SectionView.Body>
+                    <Grid>
+                        <Button Text="Backup now"
+                                ImageSource="{FontImage Glyph={fa:Icon 'fas fa-clone'}}"
+                        Command="{Binding BackUpCmd}" />
+                    </Grid>
+                </comp:SectionView.Body>
+                
+            </comp:SectionView>
+
+            <!--<Button Text="DO IT"
                     BackgroundColor="OrangeRed"
                     Command="{Binding BackUpCmd}"
-                    Grid.Row="4" Grid.ColumnSpan="2" />
+                    Grid.Row="4" Grid.ColumnSpan="2" />-->
         </Grid>
 
         

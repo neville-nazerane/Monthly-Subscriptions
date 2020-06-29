@@ -20,7 +20,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Components\SectionView.xaml.cs">
+      <DependentUpon>SectionView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="AppShell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Components\SectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\CalendarPage.xaml">

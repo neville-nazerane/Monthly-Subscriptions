@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MonthlySubscriptions.Components.SectionView">
+
+    <Frame x:Name="bodyFrame"
+        CornerRadius="10"
+        BorderColor="Black"
+        HasShadow="False"
+        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
+                                                            ElementName=titleContainer,
+                                                            Property=Height, 
+                                                            Factor=.5}"
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}" />
+
+    <AbsoluteLayout x:Name="titleContainer"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                                                Property=Width,
+                                                                Factor=1}">
+
+        <Frame BorderColor="Black"
+            CornerRadius="20"
+            HasShadow="False"
+            Padding="0"
+            x:Name="titleFrame"
+            AbsoluteLayout.LayoutBounds=".5, 0, AutoSize, AutoSize"
+            AbsoluteLayout.LayoutFlags="XProportional"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                              ElementName=titleFrame, 
+                                                              Factor=-.5, 
+                                                              Property=Height}">
+            <Label x:Name="titleLbl" 
+                   d:Text="Hello title" 
+                   FontSize="Small"
+                   Margin="14, 6"
+                   FontAttributes="Bold" />
+        </Frame>
+
+    </AbsoluteLayout>
+        
+</RelativeLayout>
