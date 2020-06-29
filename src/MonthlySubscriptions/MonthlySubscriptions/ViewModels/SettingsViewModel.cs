@@ -38,13 +38,8 @@ namespace MonthlySubscriptions.ViewModels
             var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
             if (status == PermissionStatus.Granted)
             {
-                var dirs = DependencyService.Get<IFileProviderService>().GetBackupPath();
-                Repository.BackupTo(dirs);
-                //var res = await Shell.Current.DisplayActionSheet("Pick your poy poy", "Cancel", null, dirs);
-
-
-                //var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                //var files = Directory.GetFiles(path);
+                BackupManager.BackupNow();
+                await Shell.Current.DisplayAlert("Done!", "Your data has just been backed up", "Sweet!");
             }
             else
             {

@@ -6,7 +6,7 @@ namespace MonthlySubscriptions.Services
 {
     public interface IFileProviderService
     {
-        string GetBackupPath();
-        string[] GetDirectories();
+        string GetPath();
+        string[] GetDirectories(); 
     }
 }

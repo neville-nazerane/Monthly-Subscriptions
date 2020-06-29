@@ -40,7 +40,7 @@ namespace MonthlySubscriptions.Droid.Services
             return (from f in files.ListFiles() where f.IsDirectory select f.Name).ToArray();
         }
 
-        public string GetBackupPath()
+        public string GetPath()
         {
             var folder = new File(Android.OS.Environment.ExternalStorageDirectory + File.Separator + "monthlySubscriptions");
             if (!folder.Exists()) folder.Mkdirs();
