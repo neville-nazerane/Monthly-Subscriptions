@@ -16,49 +16,48 @@
     
     <ContentPage.Content>
 
-        <FlexLayout Direction="Column" 
-                    JustifyContent="SpaceEvenly"
-                    AlignItems="Stretch"
-                    Padding="15 ">
-            
-            
-            <comp:LabeledCheckbox TitleText="Good stuff"
+        <ScrollView>
+            <Grid RowSpacing="40"
+                  Padding="15, 20"
+                  RowDefinitions="auto, *, auto">
+
+                <comp:LabeledCheckbox TitleText="Good stuff"
                                   HorizontalOptions="FillAndExpand"
                                   DescriptionText="Sample description for the good stuff"
                                   IsChecked="True" />
 
-            
-            <comp:SectionView TitleText="Backups"
-                        Grid.Row="4" Grid.ColumnSpan="2">
+                <comp:SectionView TitleText="Backups"
+                        Grid.Row="1">
 
-                <comp:SectionView.Body>
-                    <Grid RowDefinitions="60">
-                        <Button Text="Backup now"
+                    <comp:SectionView.Body>
+                        <Grid RowDefinitions="60">
+                            <Button Text="Backup now"
                                 ImageSource="{FontImage Glyph={fa:Icon 'fas fa-clone'}}"
                         Command="{Binding BackUpCmd}" />
-                        <Button Text="More options"
+                            <Button Text="More options"
                                 ImageSource="{FontImage Glyph={fa:Icon 'fas fa-sliders-h'}}"
                                 Command="{Binding BackUpCmd}"
                                 Grid.Column="1" />
-                    </Grid>
-                </comp:SectionView.Body>
-                
-            </comp:SectionView>
+                        </Grid>
+                    </comp:SectionView.Body>
 
-            
-            <comp:SectionView TitleText="Local Data" >
-                <comp:SectionView.Body>
-                    <ContentView>
-                        <Button Text="Clear Data"
+                </comp:SectionView>
+
+                <comp:SectionView TitleText="Local Data"
+                                  Grid.Row="2">
+                    <comp:SectionView.Body>
+                        <ContentView>
+                            <Button Text="Clear Data"
                                 ImageSource="{FontImage Glyph={fa:Icon 'fas fa-calendar-times'}}"
                                 Command="{Binding ClearDbCmd}"
                                 Grid.Row="3" Grid.ColumnSpan="2" />
-                    </ContentView>
-                </comp:SectionView.Body>
-            </comp:SectionView>
-            
-        </FlexLayout>
+                        </ContentView>
+                    </comp:SectionView.Body>
+                </comp:SectionView>
 
+            </Grid>
+
+        </ScrollView>
         
     </ContentPage.Content>
 </ContentPage>

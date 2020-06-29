@@ -20,7 +20,9 @@ namespace MonthlySubscriptions.Components
         public static readonly BindableProperty IsCheckedProperty = BindableProperty.Create(nameof(IsChecked), typeof(bool), typeof(LabeledCheckbox), default(bool), propertyChanged: IsCheckedChanged);
 
         public static readonly BindableProperty CheckedCommandProperty = BindableProperty.Create(nameof(CheckedCommand), typeof(ICommand), typeof(LabeledCheckbox), null);
-            
+        
+        private readonly TapGestureRecognizer _tapGestureRecognizer;
+
         public ICommand CheckedCommand
         {
             get { return (ICommand)GetValue(CheckedCommandProperty); }
@@ -35,6 +37,8 @@ namespace MonthlySubscriptions.Components
 
         public LabeledCheckbox()
         {
+            _tapGestureRecognizer = new TapGestureRecognizer();
+            GestureRecognizers.Add(_tapGestureRecognizer);
             InitializeComponent();
         }
 
@@ -42,12 +46,12 @@ namespace MonthlySubscriptions.Components
         {
             base.OnParentSet();
             if (Parent is null)
-                checkbox.CheckedChanged -= Checkbox_CheckedChanged;
+                _tapGestureRecognizer.Tapped -= OnTapped;
             else
-                checkbox.CheckedChanged += Checkbox_CheckedChanged;
+                _tapGestureRecognizer.Tapped += OnTapped;
         }
 
-        private void Checkbox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        private void OnTapped(object sender, EventArgs e)
         {
             if (CheckedCommand?.CanExecute(IsChecked) == true) CheckedCommand.Execute(IsChecked);
         }
