@@ -23,13 +23,29 @@ namespace MonthlySubscriptions.Components
 
         public View Body { get => _body; set => SetBody(value); }
 
-        public Thickness BodyPadding { get => bodyFrame.Padding; set => bodyFrame.Padding = value; }
+        public Thickness BodyPadding { get => bodyContainer.Padding; set => bodyContainer.Padding = value; }
 
         public string TitleText { get => _titleText; set => SetTitleText(value); }
 
         public SectionView()
         {
             InitializeComponent();
+        }
+
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+            if (Parent is null)
+                bodyFrame.SizeChanged -= BodyFrame_SizeChanged;
+            else
+                bodyFrame.SizeChanged += BodyFrame_SizeChanged;
+        }
+
+        private void BodyFrame_SizeChanged(object sender, EventArgs e)
+        {
+            var padding = bodyFrame.Padding;
+            padding.Top = bodyFrame.Y;
+            bodyFrame.Padding = padding;
         }
 
         private void SetTitle(View title)
@@ -41,7 +57,7 @@ namespace MonthlySubscriptions.Components
         private void SetBody(View body)
         {
             _body = body;
-            bodyFrame.Content = body;
+            bodyContainer.Content = body;
         }
 
         private void SetTitleText(string text)

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             ColumnDefinitions="auto, *"
+             x:Class="MonthlySubscriptions.Components.LabeledCheckbox">
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="{OnIdiom Phone=20, Tablet=30}" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <CheckBox x:Name="checkbox"
+              Grid.Row="0" Grid.Column="0" />
+
+    <Label x:Name="titleLbl"
+           d:Text="Sample title"
+           FontAttributes="Bold"
+           Grid.Row="0" Grid.Column="1" />
+
+    <Label x:Name="descriptionLbl"
+           d:Text="A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. A really long description. "
+           Grid.Row="1" Grid.Column="1"
+           TextColor="DarkGray"/>
+
+</Grid>

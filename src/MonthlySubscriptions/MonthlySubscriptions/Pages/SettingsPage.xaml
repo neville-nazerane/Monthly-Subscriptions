@@ -18,49 +18,45 @@
 
         <FlexLayout Direction="Column" 
                     JustifyContent="SpaceEvenly"
-                    AlignItems="Center">
+                    AlignItems="Stretch"
+                    Padding="15 ">
             
-            <Label Text="Changes your settings Without any settings"
-                        VerticalOptions="CenterAndExpand" 
-                        HorizontalOptions="CenterAndExpand" 
-                        Grid.ColumnSpan="2" />
-
-            <CheckBox Grid.Row="1" Grid.Column="0" />
             
-            <Label Text="Enable Predictions" 
-                   Grid.Row="1" Grid.Column="1" />
+            <comp:LabeledCheckbox TitleText="Good stuff"
+                                  HorizontalOptions="FillAndExpand"
+                                  DescriptionText="Sample description for the good stuff"
+                                  IsChecked="True" />
 
-            <CheckBox Grid.Row="2" Grid.Column="0" />
-
-            <Label Text="More Stuff" 
-                   Grid.Row="2" Grid.Column="1" />
-
-            <Button Text="Clear Data"
-                    ImageSource="{FontImage Glyph={fa:Icon 'fas fa-calendar-times'}}"
-                    Command="{Binding ClearDbCmd}"
-                    Grid.Row="3" Grid.ColumnSpan="2" />
-
-            <comp:SectionView TitleText="Backup"
+            
+            <comp:SectionView TitleText="Backups"
                         Grid.Row="4" Grid.ColumnSpan="2">
 
-                <!--<comp:SectionView.Title>
-                    <Label Text="Backing up" FontSize="Large" />
-                </comp:SectionView.Title>-->
-                
                 <comp:SectionView.Body>
-                    <Grid>
+                    <Grid RowDefinitions="60">
                         <Button Text="Backup now"
                                 ImageSource="{FontImage Glyph={fa:Icon 'fas fa-clone'}}"
                         Command="{Binding BackUpCmd}" />
+                        <Button Text="More options"
+                                ImageSource="{FontImage Glyph={fa:Icon 'fas fa-sliders-h'}}"
+                                Command="{Binding BackUpCmd}"
+                                Grid.Column="1" />
                     </Grid>
                 </comp:SectionView.Body>
                 
             </comp:SectionView>
 
-            <!--<Button Text="DO IT"
-                    BackgroundColor="OrangeRed"
-                    Command="{Binding BackUpCmd}"
-                    Grid.Row="4" Grid.ColumnSpan="2" />-->
+            
+            <comp:SectionView TitleText="Local Data" >
+                <comp:SectionView.Body>
+                    <ContentView>
+                        <Button Text="Clear Data"
+                                ImageSource="{FontImage Glyph={fa:Icon 'fas fa-calendar-times'}}"
+                                Command="{Binding ClearDbCmd}"
+                                Grid.Row="3" Grid.ColumnSpan="2" />
+                    </ContentView>
+                </comp:SectionView.Body>
+            </comp:SectionView>
+            
         </FlexLayout>
 
         

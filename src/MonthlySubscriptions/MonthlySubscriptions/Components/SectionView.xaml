@@ -7,15 +7,24 @@
              x:Class="MonthlySubscriptions.Components.SectionView">
 
     <Frame x:Name="bodyFrame"
-        CornerRadius="10"
-        BorderColor="Black"
-        HasShadow="False"
-        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
+            CornerRadius="10"
+            BorderColor="Black"
+            HasShadow="False"
+            d:Padding="0, 10, 0, 0"
+            Padding="0"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
                                                             ElementName=titleContainer,
                                                             Property=Height, 
                                                             Factor=.5}"
-        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}" />
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}" >
+        <ContentView x:Name="bodyContainer" 
+                     Padding="8, 10, 8, 15"
+                     d:BackgroundColor="Blue">
+            <d:Label BackgroundColor="Transparent" Text="Sample body" />
+        </ContentView>
+    </Frame>
 
+    
     <AbsoluteLayout x:Name="titleContainer"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, 
                                                                 Property=Width,
@@ -27,15 +36,11 @@
             Padding="0"
             x:Name="titleFrame"
             AbsoluteLayout.LayoutBounds=".5, 0, AutoSize, AutoSize"
-            AbsoluteLayout.LayoutFlags="XProportional"
-            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
-                                                              ElementName=titleFrame, 
-                                                              Factor=-.5, 
-                                                              Property=Height}">
+            AbsoluteLayout.LayoutFlags="XProportional">
             <Label x:Name="titleLbl" 
                    d:Text="Hello title" 
                    FontSize="Small"
-                   Margin="14, 6"
+                   Margin="18, 6"
                    FontAttributes="Bold" />
         </Frame>
 
