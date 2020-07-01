@@ -35,7 +35,6 @@
                     HorizontalOptions="Start"
                     ImageSource="{FontImage Glyph={fa:Icon 'fas fa-window-restore'}}"
                     Grid.Row="1" />
-\
 
             <component:SectionView TitleText="Named Backups"
                                    Grid.Row="2"

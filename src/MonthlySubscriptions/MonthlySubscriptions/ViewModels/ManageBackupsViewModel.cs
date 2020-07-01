@@ -103,9 +103,9 @@ namespace MonthlySubscriptions.ViewModels
                             "Yes, Restore", "Cancel");
             if (confirm)
             {
-                if (!BackupManager.RestoreFromLast())
+                if (!BackupManager.RestoreNamed(name))
                 {
-                    await Shell.Current.DisplayAlert("Failed", "Failed to restore backup", "Ok");
+                    await Shell.Current.DisplayAlert("Failed", "Couldn't find file to restore backup", "Ok");
                 }
             }
         }
