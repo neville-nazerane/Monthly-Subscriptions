@@ -25,7 +25,7 @@ namespace MonthlySubscriptions.ViewModels
         {
             ClearDbCmd = new Command(async () => await ClearAsync());
             BackUpCmd = new Command(async () => await BackUpAsync());
-            GoToBackupsCmd = new Command(async () => await Shell.Current.GoToAsync("settings/backups"));
+            GoToBackupsCmd = new Command(async () => await GoToSettingsAsync());
         }
 
         private async Task ClearAsync()
@@ -34,6 +34,13 @@ namespace MonthlySubscriptions.ViewModels
             {
                 Repository.ClearDatabase();
             }
+        }
+
+        private async Task GoToSettingsAsync()
+        {
+            var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
+            if (status == PermissionStatus.Granted)
+                await Shell.Current.GoToAsync("settings/backups");
         }
 
         private async Task BackUpAsync()
