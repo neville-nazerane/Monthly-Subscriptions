@@ -13,7 +13,7 @@
             </ShellContent>-->
             
         </Tab>
-        <Tab Title="Settings" Icon="{fa:IconImageSource 'fas fa-cogs'}" >
+        <Tab Title="Settings" Route="settings" Icon="{fa:IconImageSource 'fas fa-cogs'}" >
             <pages:SettingsPage />
         </Tab>
     </TabBar>

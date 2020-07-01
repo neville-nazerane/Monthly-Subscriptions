@@ -36,13 +36,13 @@
                         Command="{Binding BackUpCmd}" />
                             <Button Text="More options"
                                 ImageSource="{FontImage Glyph={fa:Icon 'fas fa-sliders-h'}}"
-                                Command="{Binding BackUpCmd}"
+                                Command="{Binding GoToBackupsCmd}"
                                 Grid.Column="1" />
                         </Grid>
                     </comp:SectionView.Body>
-
                 </comp:SectionView>
 
+                
                 <comp:SectionView TitleText="Local Data"
                                   Grid.Row="2">
                     <comp:SectionView.Body>

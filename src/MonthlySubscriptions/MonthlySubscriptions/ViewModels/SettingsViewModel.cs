@@ -19,10 +19,13 @@ namespace MonthlySubscriptions.ViewModels
 
         public ICommand BackUpCmd { get; set; }
 
+        public ICommand GoToBackupsCmd { get; set; }
+
         public SettingsViewModel()
         {
             ClearDbCmd = new Command(async () => await ClearAsync());
             BackUpCmd = new Command(async () => await BackUpAsync());
+            GoToBackupsCmd = new Command(async () => await Shell.Current.GoToAsync("settings/backups"));
         }
 
         private async Task ClearAsync()

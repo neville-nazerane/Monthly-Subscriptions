@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MonthlySubscriptions.ViewModels"
+             xmlns:fa="http://avantipoint.com/mobiletoolkit"
+             xmlns:m="clr-namespace:MonthlySubscriptions.Models"
+             xmlns:component="clr-namespace:MonthlySubscriptions.Components"
+             mc:Ignorable="d"
+             Title="Manage Backups"
+             x:Class="MonthlySubscriptions.Pages.ManageBackupsPage">
+
+    <ContentPage.BindingContext>
+        <vm:ManageBackupsViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid Padding="20"
+              RowSpacing="50"
+              RowDefinitions="auto, 40, *"
+              ColumnDefinitions="auto">
+            
+            <Label Grid.ColumnSpan="2">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Last Backed up: " FontAttributes="Bold" />
+                        <Span d:Text="19/01"
+                              Text="{Binding LastBackedup, StringFormat='{0:t}, {0:d}', FallbackValue='Never'}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Button Text="Restore now!"
+                    HorizontalOptions="Start"
+                    ImageSource="{FontImage Glyph={fa:Icon 'fas fa-window-restore'}}"
+                    Grid.Row="1" />
+\
+
+            <component:SectionView TitleText="Named Backups"
+                                   Grid.Row="2"
+                                   Grid.ColumnSpan="2" >
+                <component:SectionView.Body>
+                    <Grid RowDefinitions="40, 40">
+                        
+                        <Button Text="Add new" 
+                                HorizontalOptions="Start"
+                                ImageSource="{FontImage Glyph={fa:Icon 'fas fa-plus-square'}}"
+                                Command="{Binding AddCmd}" />
+
+                        <Label Text="Swipe left to manage an existing backup below"
+                               Grid.Row="1" />
+
+                        <CollectionView ItemsSource="{Binding NamedBackups}" 
+                                        Grid.Row="2">
+
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+                            
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+
+                                    <SwipeView>
+                                        <Frame BorderColor="Black" Padding="15, 5">
+                                            <Grid RowDefinitions="auto, *" RowSpacing="5">
+                                                <Label Text="{Binding}" 
+                                                       FontSize="Large" 
+                                                       Grid.ColumnSpan="2" />
+                                                
+                                                <Button Text="Restore"
+                                                        FontSize="Micro"
+                                                        ImageSource="{FontImage Glyph={fa:Icon 'fas fa-window-restore'}}"
+                                                        Command="{Binding RestoreCmd, Source={RelativeSource AncestorType={x:Type vm:ManageBackupsViewModel}}}"
+                                                        CommandParameter="{Binding}"
+                                                        Grid.Row="1" />
+                                                
+                                                <Button Text="Delete"
+                                                        FontSize="Micro"
+                                                        ImageSource="{FontImage Glyph={fa:Icon 'fas fa-minus-circle'}}"
+                                                        Command="{Binding DeleteCmd, Source={RelativeSource AncestorType={x:Type vm:ManageBackupsViewModel}}}"
+                                                        CommandParameter="{Binding}"
+                                                        Grid.Row="1" Grid.Column="1" />
+                                            </Grid>
+                                        </Frame>
+
+                                        <SwipeView.RightItems>
+                                           
+                                        </SwipeView.RightItems>
+                                        
+                                    </SwipeView>
+                                    
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        
+                    </Grid>
+                </component:SectionView.Body>
+            </component:SectionView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

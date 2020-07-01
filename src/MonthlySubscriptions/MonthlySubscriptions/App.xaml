@@ -20,5 +20,8 @@
             <Setter Property="BackgroundColor" Value="OrangeRed" />
         </Style>
 
+        <Style TargetType="SwipeItem">
+            <Setter Property="BackgroundColor" Value="OrangeRed" />
+        </Style>
     </Application.Resources>
 </Application>

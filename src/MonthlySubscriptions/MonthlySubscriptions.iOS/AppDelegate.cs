@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace MonthlySubscriptions.iOS
 {
@@ -22,6 +23,8 @@ namespace MonthlySubscriptions.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Forms.SetFlags("SwipeView_Experimental");
+
             global::Xamarin.Forms.Forms.Init();
             Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App());

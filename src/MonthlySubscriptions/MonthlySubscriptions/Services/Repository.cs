@@ -43,6 +43,11 @@ namespace MonthlySubscriptions.Services
             File.Copy(dbPath, location, true);
         }
 
+        public static void Restore(string location)
+        {
+            File.Copy(location, dbPath, true);
+        }
+
         public static void ClearDatabase() => File.Delete(dbPath);
 
     }
