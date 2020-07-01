@@ -17,7 +17,7 @@
     
     <ContentPage.Content>
         <Grid Padding="20"
-              RowSpacing="35"
+              RowSpacing="50"
               RowDefinitions="auto, 40, *"
               ColumnDefinitions="auto">
             
@@ -26,13 +26,12 @@
                     <FormattedString>
                         <Span Text="Last Backed up: " FontAttributes="Bold" />
                         <Span d:Text="19/01"
-                              Text="{Binding LastBackedup, StringFormat='{0:t}, {0:d}', Converter={x:Reference nullToNeverConverter}}" />
+                              Text="{Binding LastBackedup, StringFormat='{0:t}, {0:d}', FallbackValue='Never'}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
 
             <Button Text="Restore now!"
-                    IsVisible="{Binding LastBackedup, Converter={x:Reference nullToBoolConverter}}"
                     HorizontalOptions="Start"
                     ImageSource="{FontImage Glyph={fa:Icon 'fas fa-window-restore'}}"
                     Grid.Row="1" />
@@ -55,36 +54,41 @@
                                         Grid.Row="2">
 
                             <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
                             </CollectionView.ItemsLayout>
                             
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="x:String">
-                                    <Frame BorderColor="Black" Padding="15, 5, 15, 15">
-                                        <Grid RowDefinitions="auto, 35" 
-                                              ColumnDefinitions="*, auto, auto"
-                                              RowSpacing="5">
-                                            <Label Text="{Binding}" 
-                                                    FontSize="Large" 
-                                                    Grid.ColumnSpan="3" />
+
+                                    <SwipeView>
+                                        <Frame BorderColor="Black" Padding="15, 5">
+                                            <Grid RowDefinitions="auto, *" RowSpacing="5">
+                                                <Label Text="{Binding}" 
+                                                       FontSize="Large" 
+                                                       Grid.ColumnSpan="2" />
                                                 
-                                            <Button Text="Restore"
-                                                    FontSize="Micro"
-                                                    HorizontalOptions="Center"
-                                                    ImageSource="{FontImage Glyph={fa:Icon 'fas fa-window-restore'}, Size=Small}"
-                                                    Command="{Binding RestoreCmd, Source={RelativeSource AncestorType={x:Type vm:ManageBackupsViewModel}}}"
-                                                    CommandParameter="{Binding}"
-                                                    Grid.Row="1" Grid.Column="1" />
+                                                <Button Text="Restore"
+                                                        FontSize="Micro"
+                                                        ImageSource="{FontImage Glyph={fa:Icon 'fas fa-window-restore'}}"
+                                                        Command="{Binding RestoreCmd, Source={RelativeSource AncestorType={x:Type vm:ManageBackupsViewModel}}}"
+                                                        CommandParameter="{Binding}"
+                                                        Grid.Row="1" />
                                                 
-                                            <Button Text="Delete"
-                                                    FontSize="Micro"
-                                                    HorizontalOptions="Center"
-                                                    ImageSource="{FontImage Glyph={fa:Icon 'fas fa-minus-circle'}, Size=Small}"
-                                                    Command="{Binding DeleteCmd, Source={RelativeSource AncestorType={x:Type vm:ManageBackupsViewModel}}}"
-                                                    CommandParameter="{Binding}"
-                                                    Grid.Row="1" Grid.Column="2" />
-                                        </Grid>
-                                    </Frame>
+                                                <Button Text="Delete"
+                                                        FontSize="Micro"
+                                                        ImageSource="{FontImage Glyph={fa:Icon 'fas fa-minus-circle'}}"
+                                                        Command="{Binding DeleteCmd, Source={RelativeSource AncestorType={x:Type vm:ManageBackupsViewModel}}}"
+                                                        CommandParameter="{Binding}"
+                                                        Grid.Row="1" Grid.Column="1" />
+                                            </Grid>
+                                        </Frame>
+
+                                        <SwipeView.RightItems>
+                                           
+                                        </SwipeView.RightItems>
+                                        
+                                    </SwipeView>
+                                    
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
