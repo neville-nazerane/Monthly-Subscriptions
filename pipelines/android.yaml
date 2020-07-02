@@ -31,7 +31,7 @@ stages:
         
         - task: android-manifest-version@1
           inputs:
-            sourcePath: src/MonthlySubscriptions/MonthlySubscriptions.Android
+            sourcePath: src/MonthlySubscriptions/MonthlySubscriptions.Android/Properties/AndroidManifest.xml
             printFile: true
             versionCode: $(Build.BuildId)
             versionName: 1.0.$(Build.BuildId)
