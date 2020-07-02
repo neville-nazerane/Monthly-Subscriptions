@@ -106,7 +106,7 @@ namespace MonthlySubscriptions.ViewModels
                         allSubs.Add(new GroupedSubscription(canceledTitle, cancelled));
                     }
 
-                    Total = predictions.Sum(s => s.Price) + (currentSubs?.Sum(s => s.Price) ?? 0);
+                    Total = predictions.Sum(s => s.Price ?? 0) + (currentSubs?.Sum(s => s.Price) ?? 0);
                 }
             }
             else
