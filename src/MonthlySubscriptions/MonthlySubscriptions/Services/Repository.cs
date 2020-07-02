@@ -47,6 +47,7 @@ namespace MonthlySubscriptions.Services
         public static void Restore(string location)
         {
             File.Copy(location, dbPath, true);
+            VerifyCurrentMonthPopulated();
         }
 
         public static void ClearDatabase() => File.Delete(dbPath);
@@ -76,6 +77,21 @@ namespace MonthlySubscriptions.Services
             if (retryCount == 10)
             {
                 return;
+            }
+
+            int daysInMonth = date.DaysInMonth();
+            int daysInMonthDiff = sourceData.YearMonth.DaysInMonth() - daysInMonth;
+
+            if (daysInMonthDiff > 0)
+            {
+                var extraItems = sourceData.Subscriptions.Where(s => s.Key > daysInMonthDiff).SelectMany(s => s.Value);
+                List<Subscription> subs;
+                if (sourceData.Subscriptions.TryGetValue(daysInMonth, out var subscriptions))
+                    subs = subscriptions.ToList();
+                else
+                    subs = new List<Subscription>();
+                subs.AddRange(extraItems);
+                sourceData.Subscriptions[daysInMonth] = subs;
             }
 
             foreach (var sub in sourceData.Subscriptions)

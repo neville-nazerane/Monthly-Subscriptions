@@ -61,10 +61,33 @@ namespace MonthlySubscriptions.ViewModels
                 });
             }
 
-            if (Date.Month > DateTime.Now.Month)
+            if (Date > DateTime.Now)
             {
 
-                var predictions = Repository.Get(DateTime.Now)?.Subscriptions?.GetValueOrDefault(Date.Day);
+                var predictionSubscriptions = Repository.Get(DateTime.Now)?.Subscriptions;
+                var predictions = predictionSubscriptions?.GetValueOrDefault(Date.Day);
+
+                int daysInMonth = Date.DaysInMonth();
+
+                if (Date.Day == daysInMonth)
+                {
+                    int daysInMonthDiff = DateTime.Now.DaysInMonth() - daysInMonth;
+
+                    if (daysInMonthDiff > 0 && predictionSubscriptions != null)
+                    {
+                        var extraItems = predictionSubscriptions.Where(s => s.Key > daysInMonth).SelectMany(s => s.Value);
+                        if (extraItems.Any())
+                        {
+
+                            var subs = new List<Subscription>();
+
+                            if (predictions != null)
+                                subs.AddRange(predictions);
+                            subs.AddRange(extraItems);
+                            predictions = subs;
+                        }
+                    }
+                }
 
                 if (predictions?.Any() == true)
                 {
@@ -83,7 +106,7 @@ namespace MonthlySubscriptions.ViewModels
                         allSubs.Add(new GroupedSubscription(canceledTitle, cancelled));
                     }
 
-                    Total = predictions.Sum(s => s.Price) + currentSubs?.Sum(s => s.Price) ?? 0;
+                    Total = predictions.Sum(s => s.Price) + (currentSubs?.Sum(s => s.Price) ?? 0);
                 }
             }
             else

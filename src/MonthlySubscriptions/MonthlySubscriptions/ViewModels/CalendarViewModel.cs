@@ -79,7 +79,25 @@ namespace MonthlySubscriptions.ViewModels
             if (SelectedDate.Date > DateTime.Now.Date)
             {
                 var prediction = Repository.Get(DateTime.Now);
-                
+
+                int daysInMonth = SelectedDate.DaysInMonth();
+                int daysInMonthDiff = DateTime.Now.DaysInMonth() - daysInMonth;
+
+                if (daysInMonthDiff > 0)
+                {
+                    var extraItems = prediction.Subscriptions.Where(s => s.Key > daysInMonth).SelectMany(s => s.Value);
+                    List<Subscription> subs;
+                    if (prediction.Subscriptions.TryGetValue(daysInMonth, out var subscriptions))
+                        subs = subscriptions.ToList();
+                    else
+                        subs = new List<Subscription>();
+                    subs.AddRange(extraItems);
+                    prediction.Subscriptions[daysInMonth] = subs;
+                    for (int i = daysInMonth + 1; i <= DateTime.Now.DaysInMonth(); i++) {
+                        prediction.Subscriptions.Remove(i);
+                    }
+                }
+
                 foreach (var item in prediction.Subscriptions)
                 {
                     var subs = item.Value;
@@ -92,6 +110,8 @@ namespace MonthlySubscriptions.ViewModels
 
                     days[item.Key - 1].PredictedTotal = subs?.Sum(s => s.Price) ?? 0;
                 }
+
+
 
                 // handle max days
             }
