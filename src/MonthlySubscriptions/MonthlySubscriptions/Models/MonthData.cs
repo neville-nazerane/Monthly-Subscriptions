@@ -8,6 +8,12 @@ namespace MonthlySubscriptions.Models
     public class MonthData
     {
 
+        /// <summary>
+        /// Validates if the month is already been populated from
+        /// last months data
+        /// </summary>
+        public bool IsBlastedFromThePast { get; set; }
+
         public DateTime YearMonth { get; set; }
 
         public Dictionary<int, IEnumerable<Subscription>> Subscriptions { get; set; }

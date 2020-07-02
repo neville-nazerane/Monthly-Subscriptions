@@ -6,7 +6,6 @@ namespace MonthlySubscriptions.Models
 {
     public class Subscription
     {
-        public int Day { get; set; }
 
         public string Title { get; set; }
 

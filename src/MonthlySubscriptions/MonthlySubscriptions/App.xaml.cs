@@ -2,6 +2,7 @@
 using LiteDB;
 using MonthlySubscriptions.Models;
 using MonthlySubscriptions.Pages;
+using MonthlySubscriptions.Services;
 using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -31,6 +32,7 @@ namespace MonthlySubscriptions
         void DbSetup()
         {
             BsonMapper.Global.Entity<MonthData>().Id(m => m.YearMonth, false);
+            Repository.VerifyCurrentMonthPopulated();
         }
 
     }
