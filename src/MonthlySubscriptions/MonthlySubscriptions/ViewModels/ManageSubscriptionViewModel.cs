@@ -57,6 +57,13 @@ namespace MonthlySubscriptions.ViewModels
         public async Task SaveAsync(bool toDelete = false)
         {
             var current = Repository.Get(Date);
+
+            if (Data.Title is null || Data.Price is null)
+            {
+                await Shell.Current.DisplayAlert("Error!", "Make sure you enter the title and price", "OK");
+                return;
+            }
+
             if (IsEditing)
             {
                 try
