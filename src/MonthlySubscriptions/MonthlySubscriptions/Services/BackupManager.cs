@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -14,7 +15,27 @@ namespace MonthlySubscriptions.Services
         private const string lastBackupKey = "lastBackupAt";
 
         private const string timeFormat = "hh_mm on dd_MM_yy";
+        private const string backupPrefix = "Backup at ";
         private const string namedBackupPrefix = "Backup named ";
+
+        public static async Task<bool> EnsureInitAsync()
+        {
+            var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
+            if (status != PermissionStatus.Granted) return false;
+
+            var fileProvider = DependencyService.Get<IFileProviderService>();
+            if (!Preferences.ContainsKey(lastBackupKey))
+            {
+                string prefix = Path.Combine(fileProvider.GetPath(), backupPrefix);
+                var dates = from f in Directory.GetFiles(fileProvider.GetPath())
+                            where f.StartsWith(prefix)
+                            select DateTime.ParseExact(f.Substring(prefix.Length), timeFormat, null);
+
+                if (dates.Any())
+                    Preferences.Set(lastBackupKey, dates.Max());
+            }
+            return true;
+        }
 
         public static void BackupNow()
         {
@@ -93,7 +114,7 @@ namespace MonthlySubscriptions.Services
         private static string BuildName(DateTime time)
         {
             var fileProvider = DependencyService.Get<IFileProviderService>(); 
-            return Path.Combine(fileProvider.GetPath(), $"Backup at {time.ToString(timeFormat)}");
+            return Path.Combine(fileProvider.GetPath(), backupPrefix + time.ToString(timeFormat));
         }
 
     }

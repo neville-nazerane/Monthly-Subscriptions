@@ -17,8 +17,8 @@
     
     <ContentPage.Content>
         <Grid Padding="20"
-              RowSpacing="50"
-              RowDefinitions="auto, 40, *"
+              RowSpacing="25"
+              RowDefinitions="auto, auto, *"
               ColumnDefinitions="auto">
             
             <Label Grid.ColumnSpan="2">
@@ -26,14 +26,14 @@
                     <FormattedString>
                         <Span Text="Last Backed up: " FontAttributes="Bold" />
                         <Span d:Text="19/01"
-                              Text="{Binding LastBackedup, StringFormat='{0:t}, {0:d}', Converter={x:StaticResource nullToNeverConverter}}" />
+                              Text="{Binding LastBackedup, StringFormat='{0:t}, {0:d}', TargetNullValue='Never'}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
 
             <Button Text="Restore now!"
                     Command="{Binding RestoreLastCmd}"
-                    IsVisible="{Binding LastBackedup, Converter={x:StaticResource nullToBoolConverter}}"
+                    IsEnabled="{Binding LastBackedup, Converter={x:StaticResource nullToBoolConverter}}"
                     HorizontalOptions="Start"
                     ImageSource="{FontImage Glyph={fa:Icon 'fas fa-window-restore'}}"
                     Grid.Row="1" />
@@ -49,7 +49,7 @@
                                 ImageSource="{FontImage Glyph={fa:Icon 'fas fa-plus-square'}}"
                                 Command="{Binding AddCmd}" />
 
-                        <Label Text="Swipe left to manage an existing backup below"
+                        <Label Text="Backups saved in the past:"
                                Grid.Row="1" />
 
                         <CollectionView ItemsSource="{Binding NamedBackups}" 

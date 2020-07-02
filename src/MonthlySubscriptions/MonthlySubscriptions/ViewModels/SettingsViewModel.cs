@@ -38,22 +38,16 @@ namespace MonthlySubscriptions.ViewModels
 
         private async Task GoToSettingsAsync()
         {
-            var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
-            if (status == PermissionStatus.Granted)
+            if (await BackupManager.EnsureInitAsync()) 
                 await Shell.Current.GoToAsync("settings/backups");
         }
 
         private async Task BackUpAsync()
         {
-            var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
-            if (status == PermissionStatus.Granted)
+            if (await BackupManager.EnsureInitAsync())
             {
                 BackupManager.BackupNow();
                 await Shell.Current.DisplayAlert("Done!", "Your data has just been backed up", "Sweet!");
-            }
-            else
-            {
-                await Shell.Current.DisplayAlert("Failed!", "Can't backup without write permissions", "Cancel");
             }
         }
 
