@@ -28,6 +28,14 @@ stages:
             feedsToUse: 'config'
             nugetConfigPath: 'src/nuget.config'
 
+        
+        - task: android-manifest-version@1
+          inputs:
+            sourcePath: src/MonthlySubscriptions/MonthlySubscriptions.Android
+            printFile: true
+            versionCode: $(Build.BuildId)
+            versionName: 1.0.$(Build.BuildId)
+
         - task: XamarinAndroid@1
           inputs:
             projectFile: 'src/MonthlySubscriptions/MonthlySubscriptions.Android/MonthlySubscriptions.Android.csproj'
@@ -68,7 +76,6 @@ stages:
             releaseNotesOption: 'input'
             releaseNotesInput: 'The lazy developer hasn''t added any actual release notes.'
             destinationType: 'groups'
-            buildVersion: 1.0.$(Build.BuildId)
           
 
 
