@@ -111,15 +111,7 @@ namespace MonthlySubscriptions.ViewModels
                     days[item.Key - 1].PredictedTotal = subs?.Sum(s => s.Price) ?? 0;
                 }
 
-
-
-                // handle max days
             }
-            else
-            {
-                
-            }
-
             Days = days;
             Total = days.Sum(d => d.Total);
         }

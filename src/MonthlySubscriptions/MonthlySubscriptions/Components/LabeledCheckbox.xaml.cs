@@ -53,6 +53,7 @@ namespace MonthlySubscriptions.Components
 
         private void OnTapped(object sender, EventArgs e)
         {
+            IsChecked = !IsChecked;
             if (CheckedCommand?.CanExecute(IsChecked) == true) CheckedCommand.Execute(IsChecked);
         }
 
